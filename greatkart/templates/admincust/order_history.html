@@ -1,0 +1,65 @@
+{% extends "admincust/adminbase.html" %}
+
+{% block content %}
+<div class="content-header sty-one">
+    <h1 class="text-dark">ORDER HISTORY</h1>
+
+<div class="pull-right search-box">
+    <form action="" method="get" class="search-form">
+        <div class="input-group">
+            <input name="key" class="form-control" placeholder="Search..." type="text">
+            <span class="input-group-btn">
+          <button type="submit"  id="search-btn" class="btn btn-flat"><i
+                  class="fa fa-search"></i> </button>
+          </span></div>
+    </form>
+    <!-- search form --> </div>
+</div>
+
+<br>
+<br>
+
+<div class="container">
+
+    <section>
+        <div class="row active_user_table">
+            <div class="table-responsive">
+                <caption><p class="table_caption">ORDERS</p></caption>
+                <table class="data-table table hover multiple-select-row nowrap" id="myTable">
+                    <thead>
+                        <tr>
+                          {% comment %} <th>Item</th> {% endcomment %}
+                          <th> Order </th>
+                          <th> Product name  </th>
+                          <th> Quantity </th>
+                          <th> Price  </th>
+                          <th> created </th>
+                          <th> Action </th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                        {% for order in orders %}  
+                        <tr>
+                            {% comment %} <td><img src="{{orderproduct.product.image1.url}}"/></td> {% endcomment %}
+                          <td>{{order.order_number}}</td>
+                          <td>{{order.product}}</td>
+                          <td>{{order.quantity}}</td>
+                          <td>{{order.product_price}}</td>
+                          <td>
+                            {{order.created_at}}
+                          </td>
+                          <td>
+                            {{order.status}}
+                          </td>
+                          
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+             </div>
+          </div>
+{%endblock%}

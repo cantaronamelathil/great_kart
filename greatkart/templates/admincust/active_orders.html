@@ -1,0 +1,81 @@
+{% extends "admincust/adminbase.html" %}
+
+{% block content %}
+<div class="content-header sty-one">
+    <h1 class="text-dark">ORDER MANAGEMENT</h1>
+
+<div class="pull-right search-box">
+    <form action="" method="get" class="search-form">
+        <div class="input-group">
+            <input name="key" class="form-control" placeholder="Search..." type="text">
+            <span class="input-group-btn">
+          <button type="submit"  id="search-btn" class="btn btn-flat"><i
+                  class="fa fa-search"></i> </button>
+          </span></div>
+    </form>
+    <!-- search form --> </div>
+</div>
+
+<br>
+<br>
+
+<div class="container">
+
+    <section>
+        <div class="row active_user_table">
+            <div class="table-responsive">
+                <a class="btn btn-primary my-2" href="{% url 'order_history' %}"> order_history </a> 
+                <table class="data-table table hover multiple-select-row nowrap" id="myTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Payment</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                            {% comment %} <th scope="col">Update</th> {% endcomment %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{order.first_name}}</td>
+                            <td>{{order.product }}</td>
+                            <td>{{order.payment }}</td>
+                            <td>{{order.product_price}}</td>
+                            <td>{{order.quantity}}</td>
+                            <td>{{order.created_at}}</td>
+                            <td>{{order.status}}</td>
+                            <td>
+                                <select onchange="order_status_change(event, '{{order.id}}')" style="background-color: grey; color: whitesmoke;" name="" id="order_status">
+                                    <option value="">{{ order.status }}</option>
+                                    {% if order.status != 'Placed' %}
+                                    <option value="Placed">Placed</option>
+                                    {% endif %}
+                                    {% if order.status != 'Accepted' %}
+                                    <option value="Accepted">Accepted</option>
+                                    {% endif %}
+                                    {% if order.status != 'Shipped' %}
+                                    <option value="Shipped">Shipped</option>
+                                    {% endif %}
+                                    {% if order.status != 'Delivered' %}
+                                    <option value="Delivered">Delivered</option>
+                                    {% endif %}
+                                    {% if order.status != 'Canceled' %}
+                                    <option value="Canceled">Cancelled</option>
+                                    {% endif %}
+                                </select>
+                            </td>
+                        </tr>   
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    </div>
+  {% endblock%}  

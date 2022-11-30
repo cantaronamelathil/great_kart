@@ -1,0 +1,73 @@
+{% extends "admincust/adminbase.html" %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+ 
+<div class="content-header sty-one">
+    <h1 class="text-dark">COUPON TABLE</h1>
+
+<div class="pull-right search-box">
+    <form action="" method="get" class="search-form">
+        <div class="input-group">
+            <input name="key" class="form-control" placeholder="Search..." type="text">
+            <span class="input-group-btn">
+          <button type="submit"  id="search-btn" class="btn btn-flat"><i
+                  class="fa fa-search"></i> </button>
+          </span></div>
+    </form>
+    <!-- search form --> </div>
+</div>
+
+<br>
+<br>
+
+<div class="container">
+
+    <section>
+        <div class="row active_user_table">
+            <div class="table-responsive">
+                <a class="btn btn-primary my-2" href="{% url 'add_coupon' %}"> Add coupon</a>
+                <table class="data-table table hover multiple-select-row nowrap" id="myTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th>Coupon Name</th>
+                            <th scope="col">Coupon Code</th>
+                            <th scope="col">Stock</th>
+                            <th>Valid From</th>
+                            <th>Valid To</th>
+                            <th>Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for coupon in coupons %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{coupon.coupon_name}}</td>
+                            <td>{{coupon.code}}</td>
+                            <td>{{coupon.coupon_limit}}</td>
+                            <td>{{coupon.valid_from}}</td>
+                            <td>{{coupon.valid_to}}</td>
+                            {% if coupon.active %}
+                            <td><i class="fas fa-circle" style="color: green;"></i></td>
+                            {% else %}
+                            <td><i class="fas fa-circle" style="color: red;"></i></td>
+                            {% endif %}
+                            {% comment %} <td><a href="{%  url 'editcoupon' coupon.id %}"><i class="fas fa-pencil-alt"></i></a> <a href="{%  url 'deletecoupon' coupon.id %}" style="margin-left: 15px;" onclick="deleteCoupon()"><i
+                                class="far fa-trash-alt"></i></a> {% endcomment %}
+
+                                <td> <a href="{% url 'deletecategory' coupon.id %}" class="btn btn-primary btn-sm">Delete</a>
+                                    <a href="{% url 'editcategory' coupon.id %}" class="btn btn-primary btn-sm">edit</a></td>  
+                        </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>      
+{% endblock %}
+    

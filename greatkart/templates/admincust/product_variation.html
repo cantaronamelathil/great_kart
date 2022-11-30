@@ -1,0 +1,59 @@
+{% extends "admincust/adminbase.html" %}
+
+{% block content %}
+<div class="content-header sty-one">
+    <h1 class="text-dark">VARIATION MANAGEMENT</h1>
+
+<div class="pull-right search-box">
+    <form action="" method="get" class="search-form">
+        <div class="input-group">
+            <input name="key" class="form-control" placeholder="Search..." type="text">
+            <span class="input-group-btn">
+          <button type="submit"  id="search-btn" class="btn btn-flat"><i
+                  class="fa fa-search"></i> </button>
+          </span></div>
+    </form>
+    <!-- search form --> </div>
+</div>
+
+<br>
+<br>
+
+<div class="container">
+
+    <section>
+        <div class="row active_user_table">
+            <div class="table-responsive">
+                <a class="btn btn-primary my-2" href="{% url 'addvarient' %}"> Add Variation </a> 
+                <table class="data-table table hover multiple-select-row nowrap" id="myTable">
+                    <thead>
+						<tr>
+							<th scope="col">Index</th>
+							<th>Product Name</th>
+							<th scope="col">Varient Category</th>
+							<th scope="col">Variation Value </th>
+							<th scope="col">Color </th>
+							<!-- <th scope="col">Status</th> -->
+							<th scope="col">Actions</th>
+						</tr>
+					</thead>
+                    <tbody>
+						{% for variation in  varients %}
+
+						<tr>
+							<th scope="row">{{forloop.counter}}</th>
+							<td>{{variation.product}}</td>
+							<td>{{variation.variation_category }}</td>
+							<td>{{variation.variation_value}}</td>
+							<td>{{variation.color_name}}</td>
+                        {% comment %} <td>{% if product.stock == 0 %} <a class="badge badge-danger text-light"> <small>Out of Stock!</samll><a>
+                            {% else %}{{product.stock}} {% endif %}</td> {% endcomment %}
+                        {% comment %} <td>{{product.available}}</td>
+                        <td><a href="" class="btn btn-danger btn-sm">TRUE</a> {% endcomment %}
+                        <td> <a href="{% url 'deletevarient' variation.id %}" class="btn btn-primary btn-sm">Delete</a>
+                            <a href="{% url 'editvarient' variation.id %}" class="btn btn-primary btn-sm">edit</a>
+                    </tr>    
+                    {% endfor %}  
+
+
+     {% endblock%}               
